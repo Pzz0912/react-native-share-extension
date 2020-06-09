@@ -68,24 +68,58 @@ public class ShareModule extends ReactContextBaseJavaModule {
           type = "";
         }
 
-        if (Intent.ACTION_SEND.equals(action) && "text/plain".equals(type)) {
+        Uri uri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+
+        if (Intent.ACTION_SEND.equals(action) && uri == null) {
           value = intent.getStringExtra(Intent.EXTRA_TEXT);
-        }
-        else if (Intent.ACTION_SEND.equals(action) && 
-        ("image/*".equals(type) || 
+
+        }else if (Intent.ACTION_SEND.equals(action) && 
+        ("text/plain".equals(type) || 
+        "text/html".equals(type) || 
+        "text/css".equals(type) || 
+        "text/csv".equals(type) || 
+        "text/java".equals(type) || 
         "image/jpeg".equals(type) || 
         "image/png".equals(type) || 
         "image/jpg".equals(type) || 
+        "image/gif".equals(type) || 
+        "image/x-ico".equals(type) || 
+        "image/svg+xml".equals(type) || 
+        "image/bmp".equals(type) || 
         "audio/mpeg".equals(type) || 
+        "audio/x-mpeg".equals(type) || 
+        "audio/x-wav".equals(type) || 
+        "audio/ogg".equals(type) || 
+        "audio/x-ms-wmv".equals(type) || 
+        "audio/x-pn-realaudio".equals(type) || 
         "video/mp4".equals(type) || 
+        "video/3gpp".equals(type) || 
+        "video/quicktime".equals(type) || 
+        "video/x-msvideo".equals(type) || 
+        "video/x-flv".equals(type) || 
+        "video/mpeg".equals(type) || 
+        "video/quicktime".equals(type) || 
+        "video/x-sgi-movie".equals(type) || 
         "application/pdf".equals(type) || 
         "application/msword".equals(type) || 
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet".equals(type) || 
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document".equals(type) || 
-        "application/vnd.ms-exce".equals(type) || 
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation".equals(type) || 
+        "application/vnd.ms-excel".equals(type) || 
+        "application/zip".equals(type) || 
+        "application/vnd.ms-powerpoint".equals(type) || 
+        "application/x-gzip".equals(type) || 
+        "application/x-javascript".equals(type) || 
+        "application/x-tar".equals(type) || 
+        "application/vnd.android.package-archive".equals(type) || 
+        "application/octet-stream".equals(type) || 
+        "application/java-archive".equals(type) || 
+        "application/xhtml+xml".equals(type) || 
+        "application/metastream".equals(type) || 
+        "application/x-rar".equals(type) || 
         "application/epub+zip".equals(type) ) ) {
 
-          Uri uri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+          // Uri uri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
           
           value = RealPathUtil.getRealPathFromURI(currentActivity, uri);
 
