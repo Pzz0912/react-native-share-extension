@@ -62,6 +62,7 @@ public class ShareModule extends ReactContextBaseJavaModule {
 
       if (currentActivity != null) {
         Intent intent = currentActivity.getIntent();
+
         action = intent.getAction();
         type = intent.getType();
         if (type == null) {
@@ -123,7 +124,26 @@ public class ShareModule extends ReactContextBaseJavaModule {
           
           value = RealPathUtil.getRealPathFromURI(currentActivity, uri);
 
-       } else {
+       } else if(Intent.ACTION_VIEW.equals(action)) {
+          Uri data = intent.getData();
+          if (data != null) {
+              try {
+                String scheme = data.getScheme();
+                String host = data.getHost();
+                String path = data.getPath();
+                String query = data.getQuery();
+                String text = "Scheme: " + scheme + "\n" + "host: " + host + "\n" + "path: " + path + "\n" + "query: " + query;
+                // Log.e("data", text);
+                String url = scheme + "://" + host + path + "?" + query;
+                // Log.e("url", url);
+                type = "url";
+                value = url;
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
+          }
+        }
+        else {
          
          value = "";
        }
